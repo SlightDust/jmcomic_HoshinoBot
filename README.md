@@ -1,3 +1,6 @@
+# 不建议在QQ群使用本插件
+
+
 ## jmcomic_HoshinoBot
 
 下载并加密指定jmid的漫画并上传到群文件。基于[hect0x7/JMComic-Crawler-Python](https://github.com/hect0x7/JMComic-Crawler-Python)，适用于[HoshinoBot](https://github.com/Ice9Coffee/HoshinoBot)。
