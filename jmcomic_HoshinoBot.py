@@ -75,9 +75,28 @@ async def llob_cross_host_download_file(bot, b64):
     downloader = await bot.download_file(base64 = b64)
     return downloader['file']
 
+async def is_exist_comic(comic_id):
+    '''判断漫画是否存在
+    Returns:
+      bool: True表示漫画存在，False表示漫画不存在
+    '''
+    if os.path.exists(_pdf_path+str(comic_id)+"_encrypted.pdf"):
+        return True
+    else:
+        return False
+    
 @sv.on_rex(r'^jm(\d+)$')
 async def jmcomic_download(bot, ev):
     comic_id = int(ev.match.group(1))
+    if await is_exist_comic(comic_id):
+        await bot.send(ev, f"JMComic: {comic_id}已存在，正在上传...")
+        try:
+            path = await llob_cross_host_download_file(bot, path2b64(_pdf_path+str(comic_id)+"_encrypted.pdf"))
+            await bot.upload_group_file(group_id=ev.group_id, file=path, name=str(comic_id)+".pdf")
+        except Exception as e:
+            await bot.send(ev, f"上传群文件失败！\n {e}")
+        finally:
+            return
     await bot.send(ev, f"正在下载JMComic: {comic_id}，请稍候...")
     download_res = await download_comic(comic_id)  # [1]是漫画名称
     if not (download_res[0]):
