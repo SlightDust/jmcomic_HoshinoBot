@@ -3,7 +3,8 @@
 
 ## jmcomic_HoshinoBot
 
-下载并加密指定jmid的漫画并上传到群文件。基于[hect0x7/JMComic-Crawler-Python](https://github.com/hect0x7/JMComic-Crawler-Python)，适用于[HoshinoBot](https://github.com/Ice9Coffee/HoshinoBot)。
+下载并加密指定jmid的漫画并上传到群文件。基于[hect0x7/JMComic-Crawler-Python](https://github.com/hect0x7/JMComic-Crawler-Python)，适用于[HoshinoBot](https://github.com/Ice9Coffee/HoshinoBot)。  
+需要Python3.9+
 
 ## 安装方法
 1. 在module目录下克隆本仓库 `git clone https://github.com/SlightDust/jmcomic_HoshinoBot.git`
