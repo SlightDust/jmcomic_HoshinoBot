@@ -3,6 +3,7 @@ import jmcomic
 from PyPDF2 import PdfReader, PdfWriter
 import base64
 import os
+import yaml
 
 from hoshino import Service, priv
 
@@ -11,7 +12,18 @@ sv = Service('jmcomic', enable_on_default=False, visible=False, use_priv = priv.
 _current_path = os.path.dirname(__file__)
 config_path = os.path.join(_current_path, 'jm_config.yml')
 
-_pdf_path = "/root/18comic_down/"
+                                 
+
+#读取config上传目录
+def read_pdf_dir_config(config_path):
+    with open(config_path, 'r', encoding='utf-8') as file:
+        config = yaml.safe_load(file)
+    
+    pdf_dir = config.get('plugins', {}).get('after_album', [{}])[0].get('kwargs', {}).get('pdf_dir')
+    return pdf_dir
+
+_pdf_path = read_pdf_dir_config(config_path)
+
 
 def reverse_string(s):
     '''返回字符串s的倒序字符串'''
