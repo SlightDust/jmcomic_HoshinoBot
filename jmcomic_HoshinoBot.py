@@ -193,7 +193,7 @@ async def jmcomic_download(bot, ev):
     download_res = await download_comic(comic_id)  # [1]是漫画名称
     if not (download_res[0]):
         downloading_queue.remove(comic_id)
-        await bot.send(ev, "Failed to download comic.")
+        await bot.send(ev, f"Failed to download comic {comic_id}.")
         return
     # 开始做加密
     ok, msg = await process_file(comic_id)
@@ -202,7 +202,7 @@ async def jmcomic_download(bot, ev):
         await bot.send(ev, f"加密失败！\n {msg}")
         return
     downloading_queue.remove(comic_id)
-    await bot.send(ev, f"uploading...")
+    await bot.send(ev, f"Comic {comic_id} is uploading...")
     await do_upload(bot, ev, comic_id)
 
 # async def main():

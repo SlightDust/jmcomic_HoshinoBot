@@ -20,7 +20,7 @@
 2025.05.06 可用  
 2025.05.08 加密PDF文件的输出路径读取`jmcomic_config.yml`by[@NekoYSure](https://github.com/NekoYSure)；本地存在目标jmid文件时直接上传。增加依赖`pyyaml`。  
 2025.05.09 可选上传1.未加密pdf、2.加密pdf、3.加密zip+未加密pdf、4.加密zip+加密pdf。增加依赖`pyzipper`。  
-2025.05.10 增加了一个记录正在下载的列表，尝试下载已经在下载中的本子时发提示并return。
+2025.05.10 增加了一个记录正在下载的列表，尝试下载已经在下载中的本子时发提示并return。优化提示。  
 
 
 
