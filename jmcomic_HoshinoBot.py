@@ -23,6 +23,8 @@ UPLOAD_FILE_TYPE = 3
 
 assert UPLOAD_FILE_TYPE in [1, 2, 3, 4], "UPLOAD_FILE_TYPE must be 1, 2, 3 or 4"
 
+downloading_queue = []
+
 def read_pdf_dir_config(config_path):
     '''从jmcomic配置文件里读取pdf_dir路径'''
     with open(config_path, 'r', encoding='utf-8') as file:
@@ -183,17 +185,23 @@ async def jmcomic_download(bot, ev):
         await bot.send(ev, f"JMComic: {comic_id}已存在，正在上传...")
         await do_upload(bot, ev, comic_id)
         return
-
+    if comic_id in downloading_queue:
+        await bot.send(ev, f"{comic_id}已被提交下载，请稍后再试...")
+        return
     await bot.send(ev, f"正在下载JMComic: {comic_id}，请稍候...")
+    downloading_queue.append(comic_id)
     download_res = await download_comic(comic_id)  # [1]是漫画名称
     if not (download_res[0]):
+        downloading_queue.remove(comic_id)
         await bot.send(ev, "Failed to download comic.")
         return
     # 开始做加密
     ok, msg = await process_file(comic_id)
     if not (ok):
+        downloading_queue.remove(comic_id)
         await bot.send(ev, f"加密失败！\n {msg}")
         return
+    downloading_queue.remove(comic_id)
     await bot.send(ev, f"uploading...")
     await do_upload(bot, ev, comic_id)
 
